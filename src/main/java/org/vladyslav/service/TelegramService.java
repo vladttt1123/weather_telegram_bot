@@ -6,7 +6,7 @@ import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import org.vladyslav.sender.VolunteerHelpBotSender;
+import org.vladyslav.sender.WeatherHelpBotSender;
 
 /**
  * This service allows to communicate with Telegram API
@@ -15,9 +15,9 @@ import org.vladyslav.sender.VolunteerHelpBotSender;
 @Component
 public class TelegramService {
 
-    private final VolunteerHelpBotSender botSender;
+    private final WeatherHelpBotSender botSender;
 
-    public TelegramService(VolunteerHelpBotSender botSender) {
+    public TelegramService(WeatherHelpBotSender botSender) {
         this.botSender = botSender;
     }
 

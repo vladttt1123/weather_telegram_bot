@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Slf4j
 @Component
-public class VolunteerHelpBot extends TelegramLongPollingBot {
+public class WeatherBot extends TelegramLongPollingBot {
 
     @Value("${bot.token}")
     private String botToken;
@@ -30,7 +30,7 @@ public class VolunteerHelpBot extends TelegramLongPollingBot {
 
 
 
-    public VolunteerHelpBot(Dispatcher dispatcher, UserSessionService userSessionService) {
+    public WeatherBot(Dispatcher dispatcher, UserSessionService userSessionService) {
         this.dispatcher = dispatcher;
         this.userSessionService = userSessionService;
     }
