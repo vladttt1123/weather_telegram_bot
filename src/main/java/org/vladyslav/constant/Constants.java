@@ -1,4 +1,4 @@
-package org.vladyka.constant;
+package org.vladyslav.constant;
 
 public class Constants {
 

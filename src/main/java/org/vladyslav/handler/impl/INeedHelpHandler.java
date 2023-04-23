@@ -1,22 +1,22 @@
-package org.vladyka.handler.impl;
+package org.vladyslav.handler.impl;
 
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.vladyka.enums.ConversationState;
-import org.vladyka.handler.UserRequestHandler;
-import org.vladyka.helper.KeyboardHelper;
-import org.vladyka.model.UserRequest;
-import org.vladyka.model.UserSession;
-import org.vladyka.service.TelegramService;
-import org.vladyka.service.UserSessionService;
+import org.vladyslav.enums.ConversationState;
+import org.vladyslav.handler.UserRequestHandler;
+import org.vladyslav.helper.KeyboardHelper;
+import org.vladyslav.model.UserRequest;
+import org.vladyslav.model.UserSession;
+import org.vladyslav.service.TelegramService;
+import org.vladyslav.service.UserSessionService;
 
 import java.util.List;
 
 @Component
 public class INeedHelpHandler extends UserRequestHandler {
 
-    public static String I_NEED_HELP = "❗️Потрібна допомога";
-    public static List<String> cities = List.of("Київ", "Львів");
+    public static String I_NEED_WEATHER = "\uD83C\uDF24Дізнатись погоду";
+    public static List<String> cities = List.of("Луцьк", "Усичі", "Київ");
 
     private final TelegramService telegramService;
     private final KeyboardHelper keyboardHelper;
@@ -30,17 +30,19 @@ public class INeedHelpHandler extends UserRequestHandler {
 
     @Override
     public boolean isApplicable(UserRequest userRequest) {
-        return isTextMessage(userRequest.getUpdate(), I_NEED_HELP);
+        return isTextMessage(userRequest.getUpdate(), I_NEED_WEATHER);
     }
 
     @Override
     public void handle(UserRequest userRequest) {
+        String city = userRequest.getUpdate().getMessage().getText();
         ReplyKeyboardMarkup replyKeyboardMarkup = keyboardHelper.buildCitiesMenu(cities);
-        telegramService.sendMessage(userRequest.getChatId(),"Оберіть місто або опишіть вручну⤵️", replyKeyboardMarkup);
+        telegramService.sendMessage(userRequest.getChatId(),"Оберіть місто⤵️", replyKeyboardMarkup);
 
         UserSession userSession = userRequest.getUserSession();
         userSession.setState(ConversationState.WAITING_FOR_CITY);
         userSessionService.saveSession(userSession.getChatId(), userSession);
+
     }
 
     @Override

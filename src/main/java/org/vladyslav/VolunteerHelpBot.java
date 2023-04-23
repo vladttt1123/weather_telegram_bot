@@ -1,15 +1,16 @@
-package org.vladyka;
+package org.vladyslav;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.vladyka.model.UserRequest;
-import org.vladyka.model.UserSession;
-import org.vladyka.service.UserSessionService;
+import org.vladyslav.model.UserRequest;
+import org.vladyslav.model.UserSession;
+import org.vladyslav.service.UserSessionService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Component
@@ -23,6 +24,11 @@ public class VolunteerHelpBot extends TelegramLongPollingBot {
 
     private final Dispatcher dispatcher;
     private final UserSessionService userSessionService;
+    private Map<Long, String> userInputMap = new HashMap<>();
+//    StringBuilder userInput = new StringBuilder();
+
+
+
 
     public VolunteerHelpBot(Dispatcher dispatcher, UserSessionService userSessionService) {
         this.dispatcher = dispatcher;
@@ -45,6 +51,26 @@ public class VolunteerHelpBot extends TelegramLongPollingBot {
 
             Long chatId = update.getMessage().getChatId();
             UserSession session = userSessionService.getSession(chatId);
+            session.incrementStepCount();
+
+            // Check if this is the third question
+            boolean isThirdQuestion = session.getStepCount() % 5 == 0;
+
+            // Check if all three questions have been asked
+            boolean allQuestionsAsked = session.getStepCount() == 5;
+
+            // If this is the third question, or all questions have been asked,
+            // then clear the user input map
+            if (isThirdQuestion || allQuestionsAsked) {
+                userInputMap.remove(chatId);
+            }
+
+            String previousInput = userInputMap.getOrDefault(chatId, "");
+            userInputMap.put(chatId, previousInput + textFromUser);
+            String userInputs = userInputMap.get(chatId);
+
+
+//            System.out.println(userInputs);
 
             UserRequest userRequest = UserRequest
                     .builder()
@@ -67,13 +93,11 @@ public class VolunteerHelpBot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         // username which you give to your bot bia BotFather (without @)
-        return botUsername;
+        return "@weather_wwbot";
     }
 
     @Override
     public String getBotToken() {
-        // do not expose the token to the repository,
-        // always provide it externally(for example as environmental variable)
-        return botToken;
+        return "6095175191:AAFvyjQ013d4uqiv3gHVBFQaIvgbyCZ8JME";
     }
 }

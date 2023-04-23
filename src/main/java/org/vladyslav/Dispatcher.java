@@ -1,8 +1,9 @@
-package org.vladyka;
+package org.vladyslav;
 
 import org.springframework.stereotype.Component;
-import org.vladyka.handler.UserRequestHandler;
-import org.vladyka.model.UserRequest;
+import org.vladyslav.handler.UserRequestHandler;
+import org.vladyslav.model.UserRequest;
+import org.vladyslav.model.UserSession;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +30,7 @@ public class Dispatcher {
     }
 
     public boolean dispatch(UserRequest userRequest) {
+
         for (UserRequestHandler userRequestHandler : handlers) {
             if(userRequestHandler.isApplicable(userRequest)){
                 userRequestHandler.handle(userRequest);

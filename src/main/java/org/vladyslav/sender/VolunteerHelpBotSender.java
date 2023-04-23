@@ -1,4 +1,4 @@
-package org.vladyka.sender;
+package org.vladyslav.sender;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,8 +10,8 @@ import org.telegram.telegrambots.bots.DefaultBotOptions;
 @Component
 public class VolunteerHelpBotSender extends DefaultAbsSender {
 
-    @Value("${bot.token}")
-    private String botToken;
+//    @Value("${bot.token}")
+//    private String botToken;
 
     protected VolunteerHelpBotSender() {
         super(new DefaultBotOptions());
@@ -19,6 +19,6 @@ public class VolunteerHelpBotSender extends DefaultAbsSender {
 
     @Override
     public String getBotToken() {
-        return botToken;
+        return "6095175191:AAFvyjQ013d4uqiv3gHVBFQaIvgbyCZ8JME";
     }
 }

@@ -1,7 +1,7 @@
-package org.vladyka.service;
+package org.vladyslav.service;
 
 import org.springframework.stereotype.Component;
-import org.vladyka.model.UserSession;
+import org.vladyslav.model.UserSession;
 
 import java.util.HashMap;
 import java.util.Map;

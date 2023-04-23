@@ -1,13 +1,15 @@
-package org.vladyka.handler;
+package org.vladyslav.handler;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.vladyka.model.UserRequest;
+import org.vladyslav.model.UserRequest;
 
 public abstract class UserRequestHandler {
 
     public abstract boolean isApplicable(UserRequest request);
     public abstract void handle(UserRequest dispatchRequest);
     public abstract boolean isGlobal();
+
+        private StringBuilder userInputSb = new StringBuilder();
 
     public boolean isCommand(Update update, String command) {
         return update.hasMessage() && update.getMessage().isCommand()
