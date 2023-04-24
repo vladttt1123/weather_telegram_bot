@@ -98,6 +98,6 @@ public class WeatherBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return "6095175191:AAFvyjQ013d4uqiv3gHVBFQaIvgbyCZ8JME";
+        return "token";
     }
 }
